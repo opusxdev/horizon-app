@@ -58,6 +58,18 @@ export const incrementalUpdateSchema = Joi.object({
   deleted: Joi.array().items(Joi.string())
 }).or('added', 'updated', 'deleted');
 
+export const pointerSchema = Joi.object({
+  x: Joi.number().required(),
+  y: Joi.number().required(),
+  tool: Joi.string().allow(null),
+  button: Joi.string().allow(null)
+}).unknown(true);
+
+export const userJoinSchema = Joi.object({
+  username: Joi.string().allow('', null),
+  color: Joi.string().allow('', null)
+}).unknown(true);
+
 export const validate = (schema, data) => {
   const { error, value } = schema.validate(data, {
     abortEarly: false,
