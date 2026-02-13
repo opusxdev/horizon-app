@@ -70,7 +70,8 @@ function App() {
       isInitialized.current = true;
       if (data.users) setUsers(data.users.filter(u => u.socketId !== socket.id));
     });
-     socket.on('scene-update', (data) => {
+    
+   socket.on('scene-update', (data) => {
       applyUpdate(data.elements, data.appState, data.files, 'UPDATE');
     });
 
@@ -78,8 +79,8 @@ function App() {
       const collaborators = new Map(excalidrawAPI.getAppState().collaborators);
       collaborators.set(data.socketId, {
         pointer: data.pointer,
-        button: data.pointer.button  'up',
-        username: data.username  'Friend',
+        button: data.pointer.button || 'up',
+        username: data.username ||'Friend',
         color: data.color || '#ccc'
       });
       excalidrawAPI.updateScene({ collaborators });
