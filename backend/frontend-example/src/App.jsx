@@ -70,7 +70,30 @@ function App() {
       isInitialized.current = true;
       if (data.users) setUsers(data.users.filter(u => u.socketId !== socket.id));
     });
+     socket.on('scene-update', (data) => {
+      applyUpdate(data.elements, data.appState, data.files, 'UPDATE');
+    });
 
+    socket.on('pointer-update', (data) => {
+      const collaborators = new Map(excalidrawAPI.getAppState().collaborators);
+      collaborators.set(data.socketId, {
+        pointer: data.pointer,
+        button: data.pointer.button  'up',
+        username: data.username  'Friend',
+        color: data.color || '#ccc'
+      });
+      excalidrawAPI.updateScene({ collaborators });
+    });
+
+    socket.on('user-joined', (data) => {
+      console.log('user-joined:', data.username);
+      setUsers(prev => [...prev.filter(u => u.socketId !== data.socketId), data]);
+    });
+
+    socket.on('user-left', (data) => {
+      console.log('user-left:', data.socketId);
+      setUsers(prev => prev.filter(u => u.socketId !== data.socketId));
+    });
     // Join room AFTER listeners are attached
     console.log('emitting join-room for:', ROOM_ID);
     socket.emit('join-room', { roomId: ROOM_ID, user: currentUser });
