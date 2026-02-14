@@ -1,0 +1,39 @@
+{
+  "name": "excalidraw-backend",
+  "version": "1.0.0",
+  "description": "Production-ready Excalidraw collaborative backend with real-time sync",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Tests not configured\" && exit 0"
+  },
+  "keywords": [
+    "excalidraw",
+    "collaboration",
+    "websocket",
+    "realtime"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1",
+    "mongoose": "^8.0.3",
+    "cors": "^2.8.5",
+    "compression": "^1.7.4",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "dotenv": "^16.3.1",
+    "redis": "^4.6.12",
+    "joi": "^17.11.0",
+    "nanoid": "^5.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
